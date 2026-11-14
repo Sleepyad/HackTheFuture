@@ -6,7 +6,7 @@ extends Node
 const START_TIME := 30.0            # seconds on the clock at the start
 const MAX_TIME := 60.0              # clock can never exceed this
 const SLOWMO_SCALE := 0.3           # world speed during a trick (option B). 1.0 = normal
-const RAMP_SECONDS := 180.0         # how long until difficulty hits max (1.0)
+const RAMP_SECONDS := 90.0          # how long until difficulty hits max (1.0): speed, air time, glitches
 
 # values at difficulty 0.0 (easy) and 1.0 (hard)
 const WORD_LEN_EASY := 3
@@ -18,8 +18,8 @@ const BONUS_HARD := 1.5             # ... at MAX_LEVEL
 const PENALTY_PER_KEY := 0.5        # seconds lost per wrong key
 const OBSTACLE_PENALTY := 3.0       # seconds lost when the skater hits an obstacle
 const HIT_COOLDOWN := 0.6           # real seconds; one obstacle can only cost time once
-const LEVEL_SECONDS := 20.0         # a new level every N real seconds (C3)
-const LONGER_WORD_CHANCE := 0.3     # chance to get a word one letter longer than the level
+const LEVEL_SECONDS := 15.0         # a new level every N real seconds (C3)
+const WARMUP_WORDS := 2             # the first N words are always easy (3 letters)
 const MAX_LEVEL := 8
 const POINTS_PER_WORD := 5          # score = seconds survived + POINTS_PER_WORD * words
 # Typing speed rating: fraction of the air time used to finish the word.
@@ -259,13 +259,12 @@ func _set_game_over() -> void:
 	game_over.emit(elapsed)
 
 
-# Word length follows the level: lvl1 = 3, lvl2 = 4, lvl3 = 5, lvl4+ = 6 letters,
-# with a LONGER_WORD_CHANCE of one extra letter so hard words show up early too.
+# First WARMUP_WORDS words: 3 letters. Then straight to hard words:
+# 5 letters at level 1, 6 letters from level 2 on.
 func _pick_word() -> String:
-	var length := WORD_LEN_EASY + level - 1
-	if randf() < LONGER_WORD_CHANCE:
-		length += 1
-	length = clampi(length, WORD_LEN_EASY, WORD_LEN_HARD)
+	var length := WORD_LEN_EASY
+	if words_completed >= WARMUP_WORDS:
+		length = clampi(WORD_LEN_EASY + 1 + level, WORD_LEN_EASY, WORD_LEN_HARD)
 	var bucket: Array = WORDS[length]
 	return bucket[randi() % bucket.size()]
 
