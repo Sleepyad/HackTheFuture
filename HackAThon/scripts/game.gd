@@ -109,7 +109,7 @@ func start_trick() -> void:
 # For the HUD: the word as it should be DRAWN during a scramble glitch.
 # The real target_word is never changed, so input checking stays correct.
 func scrambled_display() -> String:
-	var chars := target_word.split("")
+	var chars: Array = Array(target_word.split(""))   # PackedStringArray has no shuffle()
 	chars.shuffle()
 	return "".join(chars)
 
