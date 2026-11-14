@@ -33,6 +33,7 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor():
 		velocity.y = 0.0
 		_gravity = DEFAULT_GRAVITY
+	Sfx.skate_state(is_on_floor())         # roll loop + landing thud
 
 
 # True when we may start a new jump/trick.
@@ -77,18 +78,10 @@ func _on_trick_failed() -> void:
 	play_trick_fail()
 
 
-# Floating "COMBO xN" above the trick name when another word is chained in the same jump.
+# "COMBO xN" glitches in above the trick name when another word is chained in the same jump.
 func _on_combo_changed(multiplier: int) -> void:
-	var l := Label.new()
-	l.text = "COMBO x%d" % multiplier
-	l.position = Vector2(-60, -160)
-	l.add_theme_font_size_override("font_size", 30)
-	l.add_theme_color_override("font_color", Color(1.0, 0.5, 0.1))
-	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(l)
-	await get_tree().create_timer(0.9, true, false, true).timeout
-	if is_instance_valid(l):
-		l.queue_free()
+	var at := get_global_transform_with_canvas().origin + Vector2(120.0, -300.0)
+	GlitchFx.pop("COMBO x%d" % multiplier, 36, Color(1.0, 0.5, 0.1), at, 0.08, 0.55)
 
 
 # ---------- PLACEHOLDER ANIMATIONS: swap the bodies for AnimatedSprite2D calls ----------
@@ -152,18 +145,10 @@ func _reset_pose() -> void:
 	board.scale = _board_scale
 
 
-# Floating text above the skater with the trick name.
+# The trick name glitches in above the skater, holds a moment, then tears away.
 func _show_trick_name(trick: String) -> void:
-	var l := Label.new()
-	l.text = trick.to_upper() + "!"
-	l.position = Vector2(-60, -120)
-	l.add_theme_font_size_override("font_size", 26)
-	l.add_theme_color_override("font_color", Color.YELLOW)
-	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(l)
-	await get_tree().create_timer(0.9, true, false, true).timeout
-	if is_instance_valid(l):
-		l.queue_free()
+	var at := get_global_transform_with_canvas().origin + Vector2(120.0, -235.0)
+	GlitchFx.pop(trick.to_upper() + "!", 54, Color(1.0, 0.9, 0.2), at, -0.1, 0.6)
 
 
 # e.g. $AnimatedSprite2D.play("bail")
