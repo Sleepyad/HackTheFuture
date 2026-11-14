@@ -44,6 +44,20 @@ func _process(delta: float) -> void:
 	_move_obstacles(speed * delta)
 	_maybe_spawn()
 	_check_jump_trigger(speed)
+	_check_collisions()
+
+
+# Hit test: the skater overlaps an obstacle sideways AND its feet are below the
+# obstacle's top. Game.hit_obstacle() has a cooldown, so calling it every frame is safe.
+func _check_collisions() -> void:
+	var left := skater.position.x - 12.0
+	var right := skater.position.x + 12.0
+	var feet := skater.position.y                       # skater origin is at its feet
+	for o in _obstacles:
+		if o.position.x + o.width - 6.0 < left or o.position.x + 6.0 > right:
+			continue                                    # not overlapping sideways
+		if feet > GROUND_Y - o.height + 8.0:
+			Game.hit_obstacle()
 
 
 # ---------- RUN FLOW ----------

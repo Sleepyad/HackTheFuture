@@ -37,6 +37,7 @@ const KINDS := {
 }
 
 var width := 48.0                      # Main uses this for spacing and jump timing
+var height := 48.0                     # Main uses this for the collision check
 
 var _first := 0
 var _frames := 1
@@ -89,6 +90,7 @@ func setup(kind: String) -> void:
 	# lands on the bottom-left of the visible art.
 	var art: Rect2 = d["art"]
 	width = art.size.x * zoom
+	height = art.size.y * zoom + _hover
 	sprite.position = Vector2(
 		(cell.x * 0.5 - art.position.x) * zoom,
 		(cell.y * 0.5 - art.position.y - art.size.y) * zoom - _hover
