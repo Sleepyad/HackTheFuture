@@ -18,9 +18,14 @@ const BONUS_HARD := 1.5             # ... at MAX_LEVEL
 const PENALTY_PER_KEY := 0.5        # seconds lost per wrong key
 const OBSTACLE_PENALTY := 3.0       # seconds lost when the skater hits an obstacle
 const HIT_COOLDOWN := 0.6           # real seconds; one obstacle can only cost time once
-const LEVEL_SECONDS := 25.0         # a new level every N real seconds (C3)
+const LEVEL_SECONDS := 20.0         # a new level every N real seconds (C3)
+const LONGER_WORD_CHANCE := 0.3     # chance to get a word one letter longer than the level
 const MAX_LEVEL := 8
 const POINTS_PER_WORD := 5          # score = seconds survived + POINTS_PER_WORD * words
+# Typing speed rating: fraction of the air time used to finish the word.
+# Faster than RATING_MAX_USED[i] -> RATINGS[i + 1]. Slower than all -> RATINGS[0].
+const RATINGS: Array[String] = ["Nice", "Hot", "Amazing", "Feverish"]
+const RATING_MAX_USED: Array[float] = [0.65, 0.45, 0.30]
 const GLITCH_CHANCE_MAX := 0.6      # chance per roll at max difficulty
 const GLITCH_ROLL_EVERY := 0.8      # real seconds between glitch rolls during a trick
 
@@ -46,6 +51,7 @@ signal level_changed(level: int)             # 1, 2, 3 ... every LEVEL_SECONDS
 signal player_landed()                       # trick over, slow-mo off
 signal player_hit_obstacle()                 # emitted by hit_obstacle()
 signal time_delta(seconds: float)            # any +/- change to the clock (bonus, penalty)
+signal word_rated(adjective: String, tier: int)   # "Nice"(0) .. "Feverish"(3), on each clean word
 
 enum State { IDLE, RUNNING, TRICK, GAME_OVER }   # IDLE = title screen, clock stopped
 
@@ -60,6 +66,7 @@ var _hit_cooldown := 0.0
 var target_word := ""
 var typed_count := 0
 var _air_left := 0.0
+var _air_total := 0.0
 var _glitch_timer := 0.0
 
 
@@ -132,6 +139,7 @@ func start_trick() -> void:
 	typed_count = 0
 	target_word = _pick_word()
 	_air_left = lerpf(AIR_TIME_EASY, AIR_TIME_HARD, difficulty)
+	_air_total = _air_left
 	_glitch_timer = GLITCH_ROLL_EVERY
 	Engine.time_scale = SLOWMO_SCALE
 	trick_started.emit(target_word, _air_left)
@@ -159,6 +167,15 @@ func penalty(seconds: float) -> void:
 # Final score for the game over screen (C4).
 func score() -> int:
 	return int(elapsed) + words_completed * POINTS_PER_WORD
+
+
+# 0..3 from the fraction of air time used (0.2 = finished in 20% of the time).
+func rate_speed(used: float) -> int:
+	var tier := 0
+	for i in RATING_MAX_USED.size():
+		if used <= RATING_MAX_USED[i]:
+			tier = i + 1
+	return tier
 
 
 # Bonus for a clean word; drops as the level goes up (C3).
@@ -218,6 +235,8 @@ func _end_trick(success: bool) -> void:
 		var bonus := current_bonus()
 		_add_time(bonus)
 		trick_succeeded.emit(bonus)
+		var tier := rate_speed(1.0 - _air_left / maxf(_air_total, 0.001))
+		word_rated.emit(RATINGS[tier], tier)
 	else:
 		trick_failed.emit()
 
@@ -240,8 +259,12 @@ func _set_game_over() -> void:
 	game_over.emit(elapsed)
 
 
+# Word length follows the level: lvl1 = 3, lvl2 = 4, lvl3 = 5, lvl4+ = 6 letters,
+# with a LONGER_WORD_CHANCE of one extra letter so hard words show up early too.
 func _pick_word() -> String:
-	var length := roundi(lerpf(WORD_LEN_EASY, WORD_LEN_HARD, difficulty))
+	var length := WORD_LEN_EASY + level - 1
+	if randf() < LONGER_WORD_CHANCE:
+		length += 1
 	length = clampi(length, WORD_LEN_EASY, WORD_LEN_HARD)
 	var bucket: Array = WORDS[length]
 	return bucket[randi() % bucket.size()]
