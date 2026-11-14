@@ -65,6 +65,8 @@ var words_completed := 0
 var _hit_cooldown := 0.0
 
 var target_word := ""
+var _decks := {}                             # word length -> words not dealt yet (see _draw_word)
+var _last_word := ""
 var typed_count := 0
 var _air_left := 0.0
 var _air_total := 0.0
@@ -92,6 +94,8 @@ func _clear() -> void:
 	difficulty = 0.0
 	level = 1
 	words_completed = 0
+	_decks.clear()
+	_last_word = ""
 	_hit_cooldown = 0.0
 	target_word = ""
 	typed_count = 0
@@ -273,8 +277,22 @@ func _pick_word() -> String:
 	var length := WORD_LEN_EASY
 	if words_completed >= WARMUP_WORDS:
 		length = clampi(WORD_LEN_EASY + 1 + level, WORD_LEN_EASY, WORD_LEN_HARD)
-	var bucket: Array = WORDS[length]
-	return bucket[randi() % bucket.size()]
+	return _draw_word(length)
+
+
+# Shuffled "deck" per word length: every word is dealt once before any repeats,
+# and a fresh shuffle never starts with the word we just had.
+func _draw_word(length: int) -> String:
+	var deck: Array = _decks.get(length, [])
+	if deck.is_empty():
+		deck = (WORDS[length] as Array).duplicate()
+		deck.shuffle()
+		if deck.size() > 1 and deck.back() == _last_word:
+			deck.push_front(deck.pop_back())
+	var word: String = deck.pop_back()
+	_decks[length] = deck
+	_last_word = word
+	return word
 
 
 func _roll_glitch() -> void:
