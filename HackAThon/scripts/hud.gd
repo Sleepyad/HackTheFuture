@@ -178,9 +178,9 @@ func _on_trick_started(_word: String, _air_time: float) -> void:
 	_task_button.show()
 
 
-func _on_trick_succeeded(bonus: float) -> void:
+# No "+3.0s" toast here: P3's timer_fx already floats the time bonus next to the clock.
+func _on_trick_succeeded(_bonus: float) -> void:
 	_task_button.hide()
-	_toast("+%.1fs" % bonus, Color(0.0, 0.45, 0.0))
 
 
 func _on_trick_failed() -> void:
