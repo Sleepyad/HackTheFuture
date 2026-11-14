@@ -6,8 +6,8 @@ extends Node2D
 
 const W := 1280.0
 const GROUND_Y := 560.0
-const SPEED_EASY := 380.0            # px/s at difficulty 0
-const SPEED_HARD := 560.0            # px/s at difficulty 1
+const SPEED_EASY := 400.0            # px/s at difficulty 0
+const SPEED_HARD := 850.0            # px/s at difficulty 1 (C: faster ramp)
 const GAP_MIN := 520.0               # px between obstacles
 const GAP_MAX := 780.0
 const SPAWN_X := W + 60.0
