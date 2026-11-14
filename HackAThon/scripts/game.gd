@@ -3,7 +3,7 @@ extends Node
 # Godot 4.x. Handles: countdown, difficulty ramp, trick typing, penalties, bonuses, glitch rolls.
 
 # ---------- TUNING (change these, not the logic) ----------
-const START_TIME := 30.0            # seconds on the clock at the start
+const START_TIME := 10.0            # seconds on the clock at the start
 const MAX_TIME := 60.0              # clock can never exceed this
 const SLOWMO_SCALE := 0.3           # world speed during a trick (option B). 1.0 = normal
 const RAMP_SECONDS := 90.0          # how long until difficulty hits max (1.0): speed, air time, glitches

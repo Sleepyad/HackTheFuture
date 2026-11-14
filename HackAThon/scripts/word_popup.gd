@@ -218,10 +218,14 @@ func _refresh() -> void:
 		return
 	var done := _word.substr(0, _index)
 	var rest := _scrambled_rest if _scrambled_rest != "" else _word.substr(_index)
-	# The cursor is always drawn (just transparent when "off") so the text never jumps.
-	var cursor := "#000000" if _cursor_on else "#00000000"
+	# Blinking cursor = underline on the next letter to type. It is not an extra glyph, so the
+	# typed letters and the remaining ones stay in one continuous run of the same font.
+	var next := rest.substr(0, 1)
+	var tail := rest.substr(1)
+	if _cursor_on and next != "":
+		next = "[u]%s[/u]" % next
 	# Correctly typed letters are highlighted (white on navy).
-	_label.text = "[center][bgcolor=#000080][color=#ffffff]%s[/color][/bgcolor][color=%s]|[/color]%s[/center]" % [done, cursor, rest]
+	_label.text = "[center][bgcolor=#000080][color=#ffffff]%s[/color][/bgcolor]%s%s[/center]" % [done, next, tail]
 
 
 func _flash_wrong() -> void:
