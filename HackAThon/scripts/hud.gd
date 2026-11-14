@@ -40,6 +40,7 @@ func _ready() -> void:
 	Game.trick_started.connect(_on_trick_started)
 	Game.trick_succeeded.connect(_on_trick_succeeded)
 	Game.trick_failed.connect(_on_trick_failed)
+	Game.player_landed.connect(_task_button.hide)   # also covers a combo word that times out
 	Game.game_over.connect(_task_button.hide.unbind(1))
 	Game.glitch.connect(_on_glitch)
 

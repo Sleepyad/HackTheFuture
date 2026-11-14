@@ -56,6 +56,7 @@ var _index: int = 0               # number of letters typed correctly so far
 var _scrambled_rest: String = ""  # shown instead of the remaining letters
 var _scramble_id: int = 0
 var _hide_id: int = 0
+var _frozen: bool = false         # true while "Not Responding" is showing
 var _cursor_on: bool = true
 var _air_total: float = 0.0       # 0 = no trick running (bar shows full)
 var _air_start_ms: int = 0
@@ -77,6 +78,7 @@ func _ready() -> void:
 	Game.key_wrong.connect(_on_key_wrong)
 	Game.trick_succeeded.connect(_close.unbind(1))
 	Game.trick_failed.connect(_on_trick_failed)
+	Game.player_landed.connect(_on_landed)
 	Game.glitch.connect(_on_glitch)
 	Game.game_over.connect(_close.unbind(1))
 	if only_while_jumping:
@@ -160,6 +162,7 @@ func _on_trick_failed() -> void:
 		_air_start_ms = Time.get_ticks_msec() - int(_air_total * 1000.0)
 	if not visible:
 		return
+	_frozen = true
 	_title.text = "%s (Not Responding)" % _title_for(_word)
 	_bar_style.bg_color = FROZEN
 	_label.modulate = Color(1, 1, 1, 0.35)
@@ -169,9 +172,23 @@ func _on_trick_failed() -> void:
 		_close()
 
 
+# The jump is over. A normal success/miss closes the window itself, but a chained
+# combo word that times out ends the jump WITHOUT trick_failed, so close it here.
+# Deferred so a trick_failed sent right after player_landed can start its
+# "Not Responding" freeze first.
+func _on_landed() -> void:
+	_close_if_landed.call_deferred()
+
+
+func _close_if_landed() -> void:
+	if visible and not _frozen and Game.state != Game.State.TRICK:
+		_close()
+
+
 func _close() -> void:
 	_hide_id += 1
 	_scramble_id += 1
+	_frozen = false
 	_air_total = 0.0
 	if only_while_jumping:
 		hide()
@@ -181,6 +198,7 @@ func _close() -> void:
 
 func _show_word(word: String) -> void:
 	_hide_id += 1
+	_frozen = false
 	_word = word
 	_index = 0
 	_scrambled_rest = ""
