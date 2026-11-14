@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3]
 
-[ext_resource type="Script" path="res://main.gd" id="1"]
-[ext_resource type="PackedScene" path="res://skater.tscn" id="2"]
-[ext_resource type="PackedScene" path="res://hud.tscn" id="3"]
-[ext_resource type="PackedScene" path="res://screens.tscn" id="4"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/skater.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/hud.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/screens.tscn" id="4"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(3000, 40)

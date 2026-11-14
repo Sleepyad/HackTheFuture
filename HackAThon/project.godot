@@ -10,6 +10,8 @@ config_version=5
 
 [application]
 
+run/main_scene="res://scenes/main.tscn"
+
 config/name="SkateExe"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
@@ -20,6 +22,8 @@ Game="*uid://cv6vly1biba12"
 
 [display]
 
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
