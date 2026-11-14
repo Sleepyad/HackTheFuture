@@ -8,6 +8,7 @@ extends CanvasLayer
 ## Timers use ignore_time_scale=true so effects keep real-time pacing during slow-mo.
 
 const POPUP_LIFETIME := 2.0
+const POPUP_CLEARANCE := 24.0      # fake ads stay at least this far from the typing window
 const TASKBAR_H := 40.0
 const LOW_TIME := 10.0             # tray clock turns red below this
 const UI_GRAY := Color("c0c0c0")
@@ -230,11 +231,12 @@ func _glitch_flicker() -> void:
 	_flicker_busy = false
 
 
-# Spawns a fake OS-style window over the word. Purely visual, auto-closes.
+# Spawns a fake OS-style window somewhere on screen, but NEVER over the typing window,
+# so the player can always read the word. Purely visual, auto-closes.
 func _glitch_popup() -> void:
 	var win := Panel.new()
 	win.size = Vector2(randf_range(240.0, 340.0), randf_range(110.0, 150.0))
-	win.position = word_popup.position + Vector2(randf_range(-120.0, 380.0), randf_range(-70.0, 60.0))
+	win.position = _popup_spot(win.size)
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = Color(0.75, 0.75, 0.75)
 	sb.border_color = Color.BLACK
@@ -258,6 +260,22 @@ func _glitch_popup() -> void:
 	await _wait(POPUP_LIFETIME)
 	if is_instance_valid(win):
 		win.queue_free()
+
+
+# Random spot for a fake ad that does not touch the typing window (which resizes to fit
+# the word, so we read its current rect every time). Falls back to just below/above it.
+func _popup_spot(win_size: Vector2) -> Vector2:
+	var keep_clear := Rect2(word_popup.position, word_popup.size).grow(POPUP_CLEARANCE)
+	var max_y := 720.0 - TASKBAR_H - win_size.y - 10.0
+	for i in 30:
+		var pos := Vector2(randf_range(10.0, 1270.0 - win_size.x), randf_range(80.0, max_y))
+		if not keep_clear.intersects(Rect2(pos, win_size)):
+			return pos
+	# No free spot found (very wide word window): put it below, or above if there's no room.
+	var x := clampf(keep_clear.get_center().x - win_size.x * 0.5, 10.0, 1270.0 - win_size.x)
+	if keep_clear.end.y + win_size.y <= 720.0 - TASKBAR_H:
+		return Vector2(x, keep_clear.end.y)
+	return Vector2(x, maxf(80.0, keep_clear.position.y - win_size.y))
 
 
 func _make_label(text: String, pos: Vector2, sz: Vector2, font_size: int, color: Color, centered := false) -> Label:
