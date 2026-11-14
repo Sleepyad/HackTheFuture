@@ -12,13 +12,14 @@ signal trick_performed(trick_name: String)   # lets the HUD show the name if it 
 var _gravity := DEFAULT_GRAVITY
 var _home := Vector2.ZERO
 var _tween: Tween
+var _board_scale := Vector2.ONE   # board sprite is scaled up in the scene
 
 @onready var body: Node2D = $Body   # all placeholder visuals live here (rotate/scale this)
-@onready var board: ColorRect = $Body/Board
+@onready var board: Sprite2D = $Body/Board
 
 
 func _ready() -> void:
-	board.pivot_offset = Vector2(28, 3)    # rotate/scale the board around its centre
+	_board_scale = board.scale            # Sprite2D is centred, so it already spins on its middle
 	_home = position
 	Game.trick_started.connect(_on_trick_started)
 	Game.trick_succeeded.connect(_on_trick_succeeded)
@@ -114,8 +115,8 @@ func _spin_board() -> void:
 # Board turns around (mirror flip) and back.
 func _flip_board() -> void:
 	_tween = create_tween()
-	_tween.tween_property(board, "scale:x", -1.0, 0.2)
-	_tween.tween_property(board, "scale:x", 1.0, 0.2)
+	_tween.tween_property(board, "scale:x", -_board_scale.x, 0.2)
+	_tween.tween_property(board, "scale:x", _board_scale.x, 0.2)
 	_tween.tween_callback(_reset_pose)
 
 
@@ -131,7 +132,7 @@ func _reset_pose() -> void:
 	body.rotation = 0.0
 	body.scale = Vector2.ONE
 	board.rotation = 0.0
-	board.scale = Vector2.ONE
+	board.scale = _board_scale
 
 
 # Floating text above the skater with the trick name.
