@@ -1,12 +1,12 @@
 class_name GameHUD
 extends CanvasLayer
-## HUD: countdown, typing pop-up (highlight + wrong-key flash), toast, glitch effects.
+## HUD: countdown, toast, glitch effects. The word itself is drawn by WordPopup
+## (scenes/word_popup.tscn), which handles its own highlight, wrong-key flash and scramble.
 ## Every control here ignores the mouse and never takes focus, so it can't eat key input.
 ## Timers use ignore_time_scale=true so effects keep real-time pacing during slow-mo.
 
 const POPUP_LIFETIME := 2.0
 const FLICKER_STEPS := 4
-const SCRAMBLE_TIME := 0.6
 const POPUP_TITLES: Array[String] = ["Warning!", "Error 404", "You won a prize!", "Virus detected", "System Alert"]
 const POPUP_BODIES: Array[String] = [
 	"Your PC is running slowly. Click OK to fix.",
@@ -15,14 +15,11 @@ const POPUP_BODIES: Array[String] = [
 	"Download more RAM now!",
 ]
 
-var _typed := 0              # letters typed correctly so far
-var _scrambled := ""         # non-empty while a scramble glitch is active
 var _flicker_busy := false
 var _toast_id := 0
 
 @onready var time_label: Label = $TimeLabel
-@onready var word_panel: Panel = $WordPanel
-@onready var word_label: RichTextLabel = $WordPanel/WordLabel
+@onready var word_popup: WordPopup = $WordPopup
 @onready var toast_label: Label = $ToastLabel
 @onready var popup_layer: Control = $PopupLayer
 
@@ -31,8 +28,6 @@ func _ready() -> void:
 	_layout()
 	Game.time_changed.connect(_on_time_changed)
 	Game.trick_started.connect(_on_trick_started)
-	Game.key_correct.connect(_on_key_correct)
-	Game.key_wrong.connect(_on_key_wrong)
 	Game.trick_succeeded.connect(_on_trick_succeeded)
 	Game.trick_failed.connect(_on_trick_failed)
 	Game.glitch.connect(_on_glitch)
@@ -40,10 +35,9 @@ func _ready() -> void:
 
 # Clears all transient UI (called by Main at the start of a run).
 func reset() -> void:
-	word_panel.hide()
+	word_popup.hide()
+	word_popup.modulate = Color.WHITE
 	toast_label.hide()
-	_typed = 0
-	_scrambled = ""
 	for p in popup_layer.get_children():
 		p.queue_free()
 
@@ -56,20 +50,9 @@ func _layout() -> void:
 	time_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	time_label.add_theme_font_size_override("font_size", 48)
 
-	word_panel.position = Vector2(340, 170)
-	word_panel.size = Vector2(600, 130)
-	var sb := StyleBoxFlat.new()
-	sb.bg_color = Color(0.05, 0.05, 0.15, 0.85)
-	sb.set_corner_radius_all(12)
-	word_panel.add_theme_stylebox_override("panel", sb)
-	word_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-
-	word_label.position = Vector2(10, 22)
-	word_label.size = Vector2(580, 100)
-	word_label.bbcode_enabled = true
-	word_label.scroll_active = false
-	word_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	word_label.add_theme_font_size_override("normal_font_size", 72)
+	# WordPopup sizes itself to the word, so re-center it whenever it resizes.
+	word_popup.resized.connect(_center_word_popup)
+	_center_word_popup()
 
 	toast_label.position = Vector2(0, 320)
 	toast_label.size = Vector2(1280, 50)
@@ -89,49 +72,21 @@ func _on_time_changed(t: float) -> void:
 	time_label.add_theme_color_override("font_color", c)
 
 
+func _center_word_popup() -> void:
+	word_popup.position = Vector2((1280.0 - word_popup.size.x) / 2.0, 170.0)
+
+
+# WordPopup shows itself; just make sure a leftover flicker didn't leave it faded.
 func _on_trick_started(_word: String, _air_time: float) -> void:
-	_typed = 0
-	_scrambled = ""
-	word_label.visible = true
-	word_panel.modulate = Color.WHITE
-	word_panel.show()
-	_render()
-
-
-# key_correct fires BEFORE Game bumps typed_count, so use index + 1.
-func _on_key_correct(index: int) -> void:
-	_typed = index + 1
-	_render()
-
-
-func _on_key_wrong(_penalty: float) -> void:
-	_flash_wrong()
+	word_popup.modulate = Color.WHITE
 
 
 func _on_trick_succeeded(bonus: float) -> void:
-	word_panel.hide()
 	_toast("+%.1fs" % bonus, Color(0.4, 1.0, 0.4))
 
 
 func _on_trick_failed() -> void:
-	word_panel.hide()
 	_toast("MISSED!", Color(1.0, 0.3, 0.3))
-
-
-# Draws the word: typed part green, rest white. While scrambled, shows shuffled letters.
-func _render() -> void:
-	if _scrambled != "":
-		word_label.text = "[center][color=white]%s[/color][/center]" % _scrambled.to_upper()
-		return
-	var word := Game.target_word
-	word_label.text = "[center][color=lime]%s[/color][color=white]%s[/color][/center]" % [
-		word.substr(0, _typed).to_upper(), word.substr(_typed).to_upper()]
-
-
-func _flash_wrong() -> void:
-	word_panel.modulate = Color(1.0, 0.25, 0.25)
-	await _wait(0.12)
-	word_panel.modulate = Color.WHITE
 
 
 func _toast(text: String, color: Color) -> void:
@@ -155,40 +110,29 @@ func _wait(seconds: float) -> void:
 func _on_glitch(kind: String) -> void:
 	match kind:
 		"flicker": _glitch_flicker()
-		"scramble": _glitch_scramble()
+		# "scramble" is handled by WordPopup itself.
 		"popup": _glitch_popup()
 
 
-# Blink the word on/off a few times.
+# Blink the word on/off a few times. Uses alpha, not visible, so it never
+# fights WordPopup's own show/hide.
 func _glitch_flicker() -> void:
 	if _flicker_busy:
 		return
 	_flicker_busy = true
 	for i in FLICKER_STEPS:
-		word_label.visible = false
+		word_popup.modulate.a = 0.0
 		await _wait(0.06)
-		word_label.visible = true
+		word_popup.modulate.a = 1.0
 		await _wait(0.06)
 	_flicker_busy = false
-
-
-# Briefly DRAW shuffled letters. Game.target_word is untouched, so input stays correct.
-func _glitch_scramble() -> void:
-	if _scrambled != "":
-		return
-	_scrambled = Game.scrambled_display()
-	_render()
-	await _wait(SCRAMBLE_TIME)
-	_scrambled = ""
-	if Game.state == Game.State.TRICK:
-		_render()
 
 
 # Spawns a fake OS-style window over the word. Purely visual, auto-closes.
 func _glitch_popup() -> void:
 	var win := Panel.new()
 	win.size = Vector2(randf_range(240.0, 340.0), randf_range(110.0, 150.0))
-	win.position = word_panel.position + Vector2(randf_range(-120.0, 380.0), randf_range(-70.0, 60.0))
+	win.position = word_popup.position + Vector2(randf_range(-120.0, 380.0), randf_range(-70.0, 60.0))
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = Color(0.75, 0.75, 0.75)
 	sb.border_color = Color.BLACK
