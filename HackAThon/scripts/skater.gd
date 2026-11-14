@@ -24,6 +24,7 @@ func _ready() -> void:
 	Game.trick_started.connect(_on_trick_started)
 	Game.trick_succeeded.connect(_on_trick_succeeded)
 	Game.trick_failed.connect(_on_trick_failed)
+	Game.combo_changed.connect(_on_combo_changed)
 
 
 func _physics_process(delta: float) -> void:
@@ -60,6 +61,8 @@ func reset() -> void:
 # Jump arc is sized so the flight lasts exactly the trick's air time in GAME time
 # (real air_time * slow-mo scale). Peak height stays JUMP_HEIGHT.
 func _on_trick_started(_word: String, air_time: float) -> void:
+	if not is_on_floor():
+		return                       # combo word in the same jump: keep flying, no new jump
 	var t := maxf(air_time * Game.SLOWMO_SCALE, 0.1)
 	_gravity = 8.0 * JUMP_HEIGHT / (t * t)
 	velocity.y = -4.0 * JUMP_HEIGHT / t
@@ -72,6 +75,20 @@ func _on_trick_succeeded(_bonus: float) -> void:
 
 func _on_trick_failed() -> void:
 	play_trick_fail()
+
+
+# Floating "COMBO xN" above the trick name when another word is chained in the same jump.
+func _on_combo_changed(multiplier: int) -> void:
+	var l := Label.new()
+	l.text = "COMBO x%d" % multiplier
+	l.position = Vector2(-60, -160)
+	l.add_theme_font_size_override("font_size", 30)
+	l.add_theme_color_override("font_color", Color(1.0, 0.5, 0.1))
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(l)
+	await get_tree().create_timer(0.9, true, false, true).timeout
+	if is_instance_valid(l):
+		l.queue_free()
 
 
 # ---------- PLACEHOLDER ANIMATIONS: swap the bodies for AnimatedSprite2D calls ----------
