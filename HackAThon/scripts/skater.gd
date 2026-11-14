@@ -5,15 +5,20 @@ extends CharacterBody2D
 
 const JUMP_HEIGHT := 150.0          # apex height in px
 const DEFAULT_GRAVITY := 2400.0
+const TRICKS: Array[String] = ["backflip", "frontflip", "kickflip", "shuvit", "360 spin"]
+
+signal trick_performed(trick_name: String)   # lets the HUD show the name if it wants to
 
 var _gravity := DEFAULT_GRAVITY
 var _home := Vector2.ZERO
 var _tween: Tween
 
 @onready var body: Node2D = $Body   # all placeholder visuals live here (rotate/scale this)
+@onready var board: ColorRect = $Body/Board
 
 
 func _ready() -> void:
+	board.pivot_offset = Vector2(28, 3)    # rotate/scale the board around its centre
 	_home = position
 	Game.trick_started.connect(_on_trick_started)
 	Game.trick_succeeded.connect(_on_trick_succeeded)
@@ -47,8 +52,7 @@ func reset() -> void:
 	position = _home
 	velocity = Vector2.ZERO
 	_gravity = DEFAULT_GRAVITY
-	body.rotation = 0.0
-	body.scale = Vector2.ONE
+	_reset_pose()
 	body.modulate = Color.WHITE
 
 
@@ -76,14 +80,72 @@ func play_jump() -> void:
 	pass
 
 
-# e.g. $AnimatedSprite2D.play("kickflip")
+# Picks a random trick from TRICKS and plays it. Add a name to TRICKS and a case here
+# for a new one. With real sprites: $AnimatedSprite2D.play(trick)
 func play_trick_success() -> void:
 	if _tween:
 		_tween.kill()
-	body.rotation = 0.0
+	_reset_pose()
+	var trick: String = TRICKS.pick_random()
+	match trick:
+		"backflip": _flip(-TAU)      # counter-clockwise = backwards for a right-facing skater
+		"frontflip": _flip(TAU)
+		"kickflip": _spin_board()
+		"shuvit": _flip_board()
+		"360 spin": _spin_body()
+	trick_performed.emit(trick)
+	_show_trick_name(trick)
+
+
+# Whole body rotates one full turn.
+func _flip(angle: float) -> void:
 	_tween = create_tween()
-	_tween.tween_property(body, "rotation", TAU, 0.35)
-	_tween.tween_callback(func() -> void: body.rotation = 0.0)
+	_tween.tween_property(body, "rotation", angle, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	_tween.tween_callback(_reset_pose)
+
+
+# Board spins in place under the feet.
+func _spin_board() -> void:
+	_tween = create_tween()
+	_tween.tween_property(board, "rotation", TAU, 0.4)
+	_tween.tween_callback(_reset_pose)
+
+
+# Board turns around (mirror flip) and back.
+func _flip_board() -> void:
+	_tween = create_tween()
+	_tween.tween_property(board, "scale:x", -1.0, 0.2)
+	_tween.tween_property(board, "scale:x", 1.0, 0.2)
+	_tween.tween_callback(_reset_pose)
+
+
+# Whole body turns around its vertical axis (squash to flat and back out mirrored, then back).
+func _spin_body() -> void:
+	_tween = create_tween()
+	_tween.tween_property(body, "scale:x", -1.0, 0.2)
+	_tween.tween_property(body, "scale:x", 1.0, 0.2)
+	_tween.tween_callback(_reset_pose)
+
+
+func _reset_pose() -> void:
+	body.rotation = 0.0
+	body.scale = Vector2.ONE
+	board.rotation = 0.0
+	board.scale = Vector2.ONE
+
+
+# Floating text above the skater with the trick name.
+func _show_trick_name(trick: String) -> void:
+	var l := Label.new()
+	l.text = trick.to_upper() + "!"
+	l.position = Vector2(-60, -120)
+	l.add_theme_font_size_override("font_size", 26)
+	l.add_theme_color_override("font_color", Color.YELLOW)
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(l)
+	await get_tree().create_timer(0.9, true, false, true).timeout
+	if is_instance_valid(l):
+		l.queue_free()
 
 
 # e.g. $AnimatedSprite2D.play("bail")
