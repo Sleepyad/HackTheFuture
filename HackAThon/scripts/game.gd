@@ -23,6 +23,11 @@ const WARMUP_WORDS := 2             # the first N words are always easy (3 lette
 const LEVEL2_MIN_DIFFICULTY := 0.55 # difficulty the moment level 2 starts (the stress jump)
 const MAX_LEVEL := 8
 const POINTS_PER_WORD := 5          # score = seconds survived + POINTS_PER_WORD * words
+# COMBO: finish a word with air time to spare and you get another word in the SAME jump.
+# Word number N in one jump pays bonus * N. Harder later: less air time + a higher spare-time bar.
+const COMBO_MAX := 5                # max words in one jump
+const COMBO_MIN_AIR_EASY := 0.6     # real seconds of air that must remain to chain, difficulty 0
+const COMBO_MIN_AIR_HARD := 1.3     # ... at difficulty 1
 # Typing speed rating: fraction of the air time used to finish the word.
 # Faster than RATING_MAX_USED[i] -> RATINGS[i + 1]. Slower than all -> RATINGS[0].
 const RATINGS: Array[String] = ["Nice", "Hot", "Amazing", "Feverish"]
@@ -52,6 +57,7 @@ signal level_changed(level: int)             # 1, 2, 3 ... every LEVEL_SECONDS
 signal player_landed()                       # trick over, slow-mo off
 signal player_hit_obstacle()                 # emitted by hit_obstacle()
 signal time_delta(seconds: float)            # any +/- change to the clock (bonus, penalty)
+signal combo_changed(multiplier: int)        # another word chained in the same jump: next word pays x multiplier
 signal word_rated(adjective: String, tier: int)   # "Nice"(0) .. "Feverish"(3), on each clean word
 
 enum State { IDLE, RUNNING, TRICK, GAME_OVER }   # IDLE = title screen, clock stopped
@@ -62,6 +68,7 @@ var elapsed := 0.0                           # real seconds survived
 var difficulty := 0.0                        # 0.0 -> 1.0 (continuous, for speed etc.)
 var level := 1                               # 1 -> MAX_LEVEL (steps, see level_changed)
 var words_completed := 0
+var combo := 0                               # words completed in the current jump
 var _hit_cooldown := 0.0
 
 var target_word := ""
@@ -92,6 +99,7 @@ func _clear() -> void:
 	difficulty = 0.0
 	level = 1
 	words_completed = 0
+	combo = 0
 	_hit_cooldown = 0.0
 	target_word = ""
 	typed_count = 0
@@ -144,6 +152,7 @@ func start_trick() -> void:
 	if state != State.RUNNING:
 		return
 	state = State.TRICK
+	combo = 0
 	typed_count = 0
 	target_word = _pick_word()
 	_air_left = lerpf(AIR_TIME_EASY, AIR_TIME_HARD, difficulty)
@@ -233,20 +242,50 @@ func _unhandled_input(event: InputEvent) -> void:
 
 # ---------- INTERNALS ----------
 func _end_trick(success: bool) -> void:
+	# COMBO: word done and enough air left -> pay it, then give another word in the same jump.
+	# We stay in State.TRICK with slow-mo on, so the skater is not "landed" in between.
+	if success and combo + 1 < COMBO_MAX and _air_left >= _chain_min_air():
+		_pay_word()
+		if state != State.GAME_OVER:
+			_chain_next_word()
+		return
 	state = State.RUNNING
 	Engine.time_scale = 1.0
 	target_word = ""
 	typed_count = 0
 	player_landed.emit()
 	if success:
-		words_completed += 1
-		var bonus := current_bonus()
-		_add_time(bonus)
-		trick_succeeded.emit(bonus)
-		var tier := rate_speed(1.0 - _air_left / maxf(_air_total, 0.001))
-		word_rated.emit(RATINGS[tier], tier)
-	else:
-		trick_failed.emit()
+		_pay_word()
+	elif combo == 0:
+		trick_failed.emit()          # ran out of air with nothing typed this jump
+	combo = 0                        # (a chained word that times out just ends the combo)
+
+
+# Spare air time needed to chain; rises with difficulty so late-game combos are rare.
+func _chain_min_air() -> float:
+	return lerpf(COMBO_MIN_AIR_EASY, COMBO_MIN_AIR_HARD, difficulty)
+
+
+# Pays one finished word: bonus x (its number in this jump).
+func _pay_word() -> void:
+	combo += 1
+	words_completed += 1
+	var bonus := current_bonus() * combo
+	_add_time(bonus)
+	trick_succeeded.emit(bonus)
+	var tier := rate_speed(1.0 - _air_left / maxf(_air_total, 0.001))
+	word_rated.emit(RATINGS[tier], tier)
+
+
+# Next word of the combo, using the air time that is left. The skater ignores this
+# trick_started (it is already airborne), the HUD popup shows the new word.
+func _chain_next_word() -> void:
+	typed_count = 0
+	target_word = _pick_word()
+	_air_total = _air_left
+	_glitch_timer = GLITCH_ROLL_EVERY
+	combo_changed.emit(combo + 1)
+	trick_started.emit(target_word, _air_left)
 
 
 func _add_time(seconds: float) -> void:
