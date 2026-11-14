@@ -78,18 +78,10 @@ func _on_trick_failed() -> void:
 	play_trick_fail()
 
 
-# Floating "COMBO xN" above the trick name when another word is chained in the same jump.
+# "COMBO xN" glitches in above the trick name when another word is chained in the same jump.
 func _on_combo_changed(multiplier: int) -> void:
-	var l := Label.new()
-	l.text = "COMBO x%d" % multiplier
-	l.position = Vector2(-60, -160)
-	l.add_theme_font_size_override("font_size", 30)
-	l.add_theme_color_override("font_color", Color(1.0, 0.5, 0.1))
-	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(l)
-	await get_tree().create_timer(0.9, true, false, true).timeout
-	if is_instance_valid(l):
-		l.queue_free()
+	var at := get_global_transform_with_canvas().origin + Vector2(120.0, -300.0)
+	GlitchFx.pop("COMBO x%d" % multiplier, 36, Color(1.0, 0.5, 0.1), at, 0.08, 0.55)
 
 
 # ---------- PLACEHOLDER ANIMATIONS: swap the bodies for AnimatedSprite2D calls ----------
