@@ -30,6 +30,10 @@ const RATING_MAX_USED: Array[float] = [0.65, 0.45, 0.30]
 const GLITCH_CHANCE_MAX := 0.6      # chance per roll at max difficulty
 const GLITCH_ROLL_EVERY := 0.8      # real seconds between glitch rolls during a trick
 
+# Bigger word bank (team file). Words from it are added to WORDS below, same length buckets.
+const WORDS_JSON := "res://data/y2k_words.json"
+
+# Built-in fallback words (also used if the JSON is missing, e.g. not exported).
 const WORDS := {
 	3: ["web", "pop", "cd", "aol", "msn", "dot", "net", "bug", "pc", "cam"],
 	4: ["wifi", "icq", "mail", "disk", "byte", "chat", "dial", "beep", "y2k", "boot"],
@@ -65,15 +69,17 @@ var words_completed := 0
 var _hit_cooldown := 0.0
 
 var target_word := ""
-var _decks := {}                             # word length -> words not dealt yet (see _draw_word)
-var _last_word := ""
 var typed_count := 0
 var _air_left := 0.0
 var _air_total := 0.0
 var _glitch_timer := 0.0
 
+var _pool: Dictionary = {}                   # word length (int) -> Array[String], typeable words only
+var _used: Dictionary = {}                   # lowercase words already shown this run
+
 
 func _ready() -> void:
+	_build_pool()
 	_clear()
 	state = State.IDLE                       # clock waits for the first reset() (Play)
 
@@ -94,9 +100,8 @@ func _clear() -> void:
 	difficulty = 0.0
 	level = 1
 	words_completed = 0
-	_decks.clear()
-	_last_word = ""
 	_hit_cooldown = 0.0
+	_used.clear()                            # words can repeat again in the next run
 	target_word = ""
 	typed_count = 0
 
@@ -273,26 +278,52 @@ func _set_game_over() -> void:
 
 # First WARMUP_WORDS words: 3 letters. Then straight to hard words:
 # 5 letters at level 1, 6 letters from level 2 on.
+# A word never shows up twice in the same run: when every word of the wanted length is used,
+# we borrow from the next lengths (one longer first), and only start over if the whole bank is used.
 func _pick_word() -> String:
 	var length := WORD_LEN_EASY
 	if words_completed >= WARMUP_WORDS:
 		length = clampi(WORD_LEN_EASY + 1 + level, WORD_LEN_EASY, WORD_LEN_HARD)
-	return _draw_word(length)
-
-
-# Shuffled "deck" per word length: every word is dealt once before any repeats,
-# and a fresh shuffle never starts with the word we just had.
-func _draw_word(length: int) -> String:
-	var deck: Array = _decks.get(length, [])
-	if deck.is_empty():
-		deck = (WORDS[length] as Array).duplicate()
-		deck.shuffle()
-		if deck.size() > 1 and deck.back() == _last_word:
-			deck.push_front(deck.pop_back())
-	var word: String = deck.pop_back()
-	_decks[length] = deck
-	_last_word = word
+	var word := _draw_unused(length)
+	if word == "":
+		_used.clear()                        # the whole bank was used: new cycle
+		word = _draw_unused(length)
+	_used[word.to_lower()] = true
 	return word
+
+
+func _draw_unused(length: int) -> String:
+	for offset in [0, 1, -1, 2, -2, 3, -3]:
+		var bucket: Array = _pool.get(length + offset, [])
+		var fresh: Array = bucket.filter(func(w: String) -> bool: return not _used.has(w.to_lower()))
+		if not fresh.is_empty():
+			return fresh[randi() % fresh.size()]
+	return ""
+
+
+# Merges the built-in words and the JSON bank, dropping duplicates and anything the player
+# could not type (spaces, hyphens, apostrophes: only letters and digits are read as input).
+func _build_pool() -> void:
+	_pool.clear()
+	var seen := {}
+	var all_words: Array = []
+	for length in WORDS:
+		all_words.append_array(WORDS[length])
+	if FileAccess.file_exists(WORDS_JSON):
+		var data = JSON.parse_string(FileAccess.get_file_as_string(WORDS_JSON))
+		if typeof(data) == TYPE_DICTIONARY:
+			for lvl in data.get("levels", []):
+				for entry in lvl.get("words", []):
+					all_words.append(str(entry.get("word", "")))
+	var typeable := RegEx.create_from_string("^[A-Za-z0-9]+$")
+	for w in all_words:
+		var key: String = w.to_lower()
+		if seen.has(key) or typeable.search(w) == null:
+			continue
+		seen[key] = true
+		if not _pool.has(w.length()):
+			_pool[w.length()] = []
+		_pool[w.length()].append(w)
 
 
 func _roll_glitch() -> void:
