@@ -20,6 +20,7 @@ const OBSTACLE_PENALTY := 3.0       # seconds lost when the skater hits an obsta
 const HIT_COOLDOWN := 0.6           # real seconds; one obstacle can only cost time once
 const LEVEL_SECONDS := 15.0         # a new level every N real seconds (C3)
 const WARMUP_WORDS := 2             # the first N words are always easy (3 letters)
+const LEVEL2_MIN_DIFFICULTY := 0.55 # difficulty the moment level 2 starts (the stress jump)
 const MAX_LEVEL := 8
 const POINTS_PER_WORD := 5          # score = seconds survived + POINTS_PER_WORD * words
 # Typing speed rating: fraction of the air time used to finish the word.
@@ -105,13 +106,20 @@ func _process(delta: float) -> void:
 	var real_delta := delta / maxf(Engine.time_scale, 0.001)
 
 	elapsed += real_delta
-	difficulty = clampf(elapsed / RAMP_SECONDS, 0.0, 1.0)
 	_hit_cooldown -= real_delta
 
 	var new_level := mini(1 + int(elapsed / LEVEL_SECONDS), MAX_LEVEL)
 	if new_level != level:
 		level = new_level
 		level_changed.emit(level)
+
+	# Level 1 ramps slowly. Level 2 is a sudden jump to LEVEL2_MIN_DIFFICULTY (faster scroll,
+	# less air time, more glitches), then keeps climbing to 1.0 at RAMP_SECONDS.
+	if level < 2:
+		difficulty = clampf(elapsed / RAMP_SECONDS, 0.0, LEVEL2_MIN_DIFFICULTY)
+	else:
+		var t := clampf((elapsed - LEVEL_SECONDS) / maxf(RAMP_SECONDS - LEVEL_SECONDS, 1.0), 0.0, 1.0)
+		difficulty = lerpf(LEVEL2_MIN_DIFFICULTY, 1.0, t)
 
 	time_left -= real_delta
 	time_changed.emit(time_left)
