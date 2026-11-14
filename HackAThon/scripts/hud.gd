@@ -1,11 +1,18 @@
 class_name GameHUD
 extends CanvasLayer
-## HUD: countdown, toast, glitch effects. The word itself is drawn by WordPopup
-## (scenes/word_popup.tscn), which handles its own highlight, wrong-key flash and scramble.
+## HUD: countdown, Win98 taskbar with a Y2K tray clock, tooltip toasts, glitch effects.
+## The word itself is drawn by WordPopup (scenes/word_popup.tscn), which handles its
+## own highlight, wrong-key flash, air-time bar and scramble.
+## The tray clock counts down to midnight, Dec 31 1999: running out of time = Y2K hits.
 ## Every control here ignores the mouse and never takes focus, so it can't eat key input.
 ## Timers use ignore_time_scale=true so effects keep real-time pacing during slow-mo.
 
 const POPUP_LIFETIME := 2.0
+const TASKBAR_H := 40.0
+const LOW_TIME := 10.0             # tray clock turns red below this
+const UI_GRAY := Color("c0c0c0")
+const UI_DARK := Color("404040")
+const TOOLTIP_BG := Color("ffffe1")
 const FLICKER_STEPS := 4
 const POPUP_TITLES: Array[String] = ["Warning!", "Error 404", "You won a prize!", "Virus detected", "System Alert"]
 const POPUP_BODIES: Array[String] = [
@@ -17,6 +24,9 @@ const POPUP_BODIES: Array[String] = [
 
 var _flicker_busy := false
 var _toast_id := 0
+var _tray_clock: Label             # "12/31/1999 11:59:30 PM" in the taskbar
+var _task_button: Panel            # taskbar button for the open typing window
+var _task_label: Label
 
 @onready var time_label: Label = $TimeLabel
 @onready var word_popup: WordPopup = $WordPopup
@@ -30,6 +40,7 @@ func _ready() -> void:
 	Game.trick_started.connect(_on_trick_started)
 	Game.trick_succeeded.connect(_on_trick_succeeded)
 	Game.trick_failed.connect(_on_trick_failed)
+	Game.game_over.connect(_task_button.hide.unbind(1))
 	Game.glitch.connect(_on_glitch)
 
 
@@ -38,6 +49,7 @@ func reset() -> void:
 	word_popup.hide()
 	word_popup.modulate = Color.WHITE
 	toast_label.hide()
+	_task_button.hide()
 	for p in popup_layer.get_children():
 		p.queue_free()
 
@@ -50,14 +62,24 @@ func _layout() -> void:
 	time_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	time_label.add_theme_font_size_override("font_size", 48)
 
+	_build_taskbar()
+
 	# WordPopup sizes itself to the word, so re-center it whenever it resizes.
 	word_popup.resized.connect(_center_word_popup)
 	_center_word_popup()
 
-	toast_label.position = Vector2(0, 320)
-	toast_label.size = Vector2(1280, 50)
-	toast_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	toast_label.add_theme_font_size_override("font_size", 40)
+	# Toasts look like a yellow Win98 tooltip, above the typing window.
+	var tip := StyleBoxFlat.new()
+	tip.bg_color = TOOLTIP_BG
+	tip.border_color = Color.BLACK
+	tip.set_border_width_all(1)
+	tip.content_margin_left = 10
+	tip.content_margin_right = 10
+	tip.content_margin_top = 2
+	tip.content_margin_bottom = 2
+	toast_label.add_theme_stylebox_override("normal", tip)
+	toast_label.add_theme_font_size_override("font_size", 28)
+	toast_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	popup_layer.position = Vector2.ZERO
 	popup_layer.size = Vector2(1280, 720)
@@ -66,10 +88,81 @@ func _layout() -> void:
 
 # ---------- CORE HUD ----------
 
+# Win98 taskbar along the bottom: a start-style button, a button for the open
+# typing window and the tray clock.
+func _build_taskbar() -> void:
+	var bar := Panel.new()
+	bar.name = "Taskbar"
+	bar.position = Vector2(0, 720.0 - TASKBAR_H)
+	bar.size = Vector2(1280, TASKBAR_H)
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = UI_GRAY
+	sb.border_color = Color.WHITE
+	sb.border_width_top = 2
+	bar.add_theme_stylebox_override("panel", sb)
+	add_child(bar)
+	move_child(bar, popup_layer.get_index())   # fake ads still draw on top
+
+	var start := _bevel_box(Vector2(4, 5), Vector2(110, 30), false)
+	start.add_child(_make_label("skate.exe", Vector2(0, 3), Vector2(110, 24), 16, Color.BLACK, true))
+	bar.add_child(start)
+
+	_task_button = _bevel_box(Vector2(122, 5), Vector2(230, 30), true)
+	_task_label = _make_label("", Vector2(8, 4), Vector2(214, 22), 14, Color.BLACK)
+	_task_label.autowrap_mode = TextServer.AUTOWRAP_OFF
+	_task_label.clip_text = true
+	_task_button.add_child(_task_label)
+	_task_button.hide()
+	bar.add_child(_task_button)
+
+	var tray := _bevel_box(Vector2(1010, 5), Vector2(266, 30), true)
+	bar.add_child(tray)
+	_tray_clock = _make_label("", Vector2(0, 3), Vector2(266, 24), 17, Color.BLACK, true)
+	_tray_clock.autowrap_mode = TextServer.AUTOWRAP_OFF
+	tray.add_child(_tray_clock)
+
+
+# Gray box with a one-colour bevel: dark bottom/right = raised, dark top/left = sunken.
+func _bevel_box(pos: Vector2, sz: Vector2, sunken: bool) -> Panel:
+	var box := Panel.new()
+	box.position = pos
+	box.size = sz
+	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color("d8d8d8") if sunken else UI_GRAY
+	sb.border_color = UI_DARK
+	if sunken:
+		sb.border_width_left = 2
+		sb.border_width_top = 2
+	else:
+		sb.border_width_right = 2
+		sb.border_width_bottom = 2
+	box.add_theme_stylebox_override("panel", sb)
+	return box
+
+
 func _on_time_changed(t: float) -> void:
 	time_label.text = "%.1f" % maxf(t, 0.0)
 	var c := Color(1.0, 0.3, 0.3) if t < 5.0 else Color.WHITE
 	time_label.add_theme_color_override("font_color", c)
+	_update_tray_clock(t)
+
+
+# The tray clock shows time left as seconds until midnight on Dec 31 1999.
+# At zero the date rolls over to 1900: the millennium bug strikes.
+@warning_ignore("integer_division")
+func _update_tray_clock(t: float) -> void:
+	var left := ceili(maxf(t, 0.0))
+	if left <= 0:
+		_tray_clock.text = "1/1/1900  12:00:00 AM"
+	else:
+		var secs := 86400 - left
+		var h := secs / 3600
+		var h12 := 12 if h % 12 == 0 else h % 12
+		_tray_clock.text = "12/31/1999  %d:%02d:%02d %s" % [
+			h12, (secs % 3600) / 60, secs % 60, "PM" if h >= 12 else "AM"]
+	var c := Color(0.8, 0.0, 0.0) if t < LOW_TIME else Color.BLACK
+	_tray_clock.add_theme_color_override("font_color", c)
 
 
 func _center_word_popup() -> void:
@@ -77,21 +170,29 @@ func _center_word_popup() -> void:
 
 
 # WordPopup shows itself; just make sure a leftover flicker didn't leave it faded.
+# Also shows a taskbar button for the window (WordPopup sets its title first,
+# since it connected to the signal before us).
 func _on_trick_started(_word: String, _air_time: float) -> void:
 	word_popup.modulate = Color.WHITE
+	_task_label.text = word_popup.get_window_title()
+	_task_button.show()
 
 
 func _on_trick_succeeded(bonus: float) -> void:
-	_toast("+%.1fs" % bonus, Color(0.4, 1.0, 0.4))
+	_task_button.hide()
+	_toast("+%.1fs" % bonus, Color(0.0, 0.45, 0.0))
 
 
 func _on_trick_failed() -> void:
-	_toast("MISSED!", Color(1.0, 0.3, 0.3))
+	_task_button.hide()
+	_toast("MISSED!", Color(0.75, 0.0, 0.0))
 
 
 func _toast(text: String, color: Color) -> void:
 	toast_label.text = text
 	toast_label.add_theme_color_override("font_color", color)
+	toast_label.reset_size()
+	toast_label.position = Vector2((1280.0 - toast_label.size.x) / 2.0, 110.0)
 	toast_label.show()
 	_toast_id += 1
 	var id := _toast_id

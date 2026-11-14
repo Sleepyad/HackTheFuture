@@ -5,386 +5,386 @@
    "name": "Easy",
    "rule": "2-4 letters",
    "words": [
-    {
-     "word": "cd",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "jk",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "np",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "pc",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "yo",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "aim",
-     "category": "Internet"
-    },
-    {
-     "word": "aol",
-     "category": "Internet"
-    },
-    {
-     "word": "asl",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "bat",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "bff",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "bit",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "brb",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "bug",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "cpu",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "crt",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "cya",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "dos",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "dvd",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "emo",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "exe",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "fax",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "gr8",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "gtg",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "icq",
-     "category": "Internet"
-    },
-    {
-     "word": "idk",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "imo",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "l8r",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "lol",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "mac",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "mp3",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "msn",
-     "category": "Internet"
-    },
-    {
-     "word": "mtv",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "net",
-     "category": "Internet"
-    },
-    {
-     "word": "nvm",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "omg",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "pda",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "plz",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "pop",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "pwn",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "ram",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "sup",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "thx",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "trl",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "usb",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "vcr",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "vhs",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "web",
-     "category": "Internet"
-    },
-    {
-     "word": "www",
-     "category": "Internet"
-    },
-    {
-     "word": "y2k",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "zip",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "2000",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "away",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "beep",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "blog",
-     "category": "Internet"
-    },
-    {
-     "word": "boot",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "byte",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "chat",
-     "category": "Internet"
-    },
-    {
-     "word": "chip",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "dawg",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "dawn",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "disk",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "diva",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "ebay",
-     "category": "Internet"
-    },
-    {
-     "word": "glam",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "halo",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "html",
-     "category": "Internet"
-    },
-    {
-     "word": "http",
-     "category": "Internet"
-    },
-    {
-     "word": "idol",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "imac",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "ipod",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "java",
-     "category": "Internet"
-    },
-    {
-     "word": "kewl",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "leet",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "link",
-     "category": "Internet"
-    },
-    {
-     "word": "lmao",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "n00b",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "neon",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "palm",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "phat",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "ping",
-     "category": "Internet"
-    },
-    {
-     "word": "punk",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "rave",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "razr",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "rofl",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "sims",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "site",
-     "category": "Internet"
-    },
-    {
-     "word": "spam",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "surf",
-     "category": "Internet"
-    },
-    {
-     "word": "ttyl",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "w00t",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "wifi",
-     "category": "Internet"
-    },
-    {
-     "word": "worm",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "xbox",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "year",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "zero",
-     "category": "Y2K & Millennium"
-    }
+	{
+	 "word": "cd",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "jk",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "np",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "pc",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "yo",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "aim",
+	 "category": "Internet"
+	},
+	{
+	 "word": "aol",
+	 "category": "Internet"
+	},
+	{
+	 "word": "asl",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "bat",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "bff",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "bit",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "brb",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "bug",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "cpu",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "crt",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "cya",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "dos",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "dvd",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "emo",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "exe",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "fax",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "gr8",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "gtg",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "icq",
+	 "category": "Internet"
+	},
+	{
+	 "word": "idk",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "imo",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "l8r",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "lol",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "mac",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "mp3",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "msn",
+	 "category": "Internet"
+	},
+	{
+	 "word": "mtv",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "net",
+	 "category": "Internet"
+	},
+	{
+	 "word": "nvm",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "omg",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "pda",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "plz",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "pop",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "pwn",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "ram",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "sup",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "thx",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "trl",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "usb",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "vcr",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "vhs",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "web",
+	 "category": "Internet"
+	},
+	{
+	 "word": "www",
+	 "category": "Internet"
+	},
+	{
+	 "word": "y2k",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "zip",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "2000",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "away",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "beep",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "blog",
+	 "category": "Internet"
+	},
+	{
+	 "word": "boot",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "byte",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "chat",
+	 "category": "Internet"
+	},
+	{
+	 "word": "chip",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "dawg",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "dawn",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "disk",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "diva",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "ebay",
+	 "category": "Internet"
+	},
+	{
+	 "word": "glam",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "halo",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "html",
+	 "category": "Internet"
+	},
+	{
+	 "word": "http",
+	 "category": "Internet"
+	},
+	{
+	 "word": "idol",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "imac",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "ipod",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "java",
+	 "category": "Internet"
+	},
+	{
+	 "word": "kewl",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "leet",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "link",
+	 "category": "Internet"
+	},
+	{
+	 "word": "lmao",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "n00b",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "neon",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "palm",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "phat",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "ping",
+	 "category": "Internet"
+	},
+	{
+	 "word": "punk",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "rave",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "razr",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "rofl",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "sims",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "site",
+	 "category": "Internet"
+	},
+	{
+	 "word": "spam",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "surf",
+	 "category": "Internet"
+	},
+	{
+	 "word": "ttyl",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "w00t",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "wifi",
+	 "category": "Internet"
+	},
+	{
+	 "word": "worm",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "xbox",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "year",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "zero",
+	 "category": "Y2K & Millennium"
+	}
    ]
   },
   {
@@ -392,314 +392,314 @@
    "name": "Medium",
    "rule": "5-6 letters",
    "words": [
-    {
-     "word": "alien",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "baggy",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "bling",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "buddy",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "cargo",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "crash",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "cyber",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "denim",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "email",
-     "category": "Internet"
-    },
-    {
-     "word": "emote",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "error",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "flame",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "flash",
-     "category": "Internet"
-    },
-    {
-     "word": "forum",
-     "category": "Internet"
-    },
-    {
-     "word": "furby",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "haxor",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "ibook",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "inbox",
-     "category": "Internet"
-    },
-    {
-     "word": "kazaa",
-     "category": "Internet"
-    },
-    {
-     "word": "laser",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "lycos",
-     "category": "Internet"
-    },
-    {
-     "word": "mario",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "modem",
-     "category": "Internet"
-    },
-    {
-     "word": "mouse",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "nokia",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "nsync",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "orbit",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "pager",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "paint",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "pixel",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "popup",
-     "category": "Internet"
-    },
-    {
-     "word": "remix",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "retro",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "robot",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "shrek",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "sonic",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "space",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "troll",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "virus",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "xanga",
-     "category": "Internet"
-    },
-    {
-     "word": "yahoo",
-     "category": "Internet"
-    },
-    {
-     "word": "zelda",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "banner",
-     "category": "Internet"
-    },
-    {
-     "word": "booyah",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "bunker",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "burner",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "choker",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "chrome",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "clippy",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "cookie",
-     "category": "Internet"
-    },
-    {
-     "word": "cyborg",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "defrag",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "dialup",
-     "category": "Internet"
-    },
-    {
-     "word": "domain",
-     "category": "Internet"
-    },
-    {
-     "word": "dotcom",
-     "category": "Internet"
-    },
-    {
-     "word": "eminem",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "floppy",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "format",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "future",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "glitch",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "laptop",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "lurker",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "matrix",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "newbie",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "reboot",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "rental",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "router",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "server",
-     "category": "Internet"
-    },
-    {
-     "word": "smiley",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "techno",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "tetris",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "upload",
-     "category": "Internet"
-    },
-    {
-     "word": "velour",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "wassup",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "webcam",
-     "category": "Internet"
-    },
-    {
-     "word": "winamp",
-     "category": "Internet"
-    },
-    {
-     "word": "wizard",
-     "category": "Software & Bugs"
-    }
+	{
+	 "word": "alien",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "baggy",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "bling",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "buddy",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "cargo",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "crash",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "cyber",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "denim",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "email",
+	 "category": "Internet"
+	},
+	{
+	 "word": "emote",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "error",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "flame",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "flash",
+	 "category": "Internet"
+	},
+	{
+	 "word": "forum",
+	 "category": "Internet"
+	},
+	{
+	 "word": "furby",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "haxor",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "ibook",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "inbox",
+	 "category": "Internet"
+	},
+	{
+	 "word": "kazaa",
+	 "category": "Internet"
+	},
+	{
+	 "word": "laser",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "lycos",
+	 "category": "Internet"
+	},
+	{
+	 "word": "mario",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "modem",
+	 "category": "Internet"
+	},
+	{
+	 "word": "mouse",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "nokia",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "nsync",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "orbit",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "pager",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "paint",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "pixel",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "popup",
+	 "category": "Internet"
+	},
+	{
+	 "word": "remix",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "retro",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "robot",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "shrek",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "sonic",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "space",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "troll",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "virus",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "xanga",
+	 "category": "Internet"
+	},
+	{
+	 "word": "yahoo",
+	 "category": "Internet"
+	},
+	{
+	 "word": "zelda",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "banner",
+	 "category": "Internet"
+	},
+	{
+	 "word": "booyah",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "bunker",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "burner",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "choker",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "chrome",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "clippy",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "cookie",
+	 "category": "Internet"
+	},
+	{
+	 "word": "cyborg",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "defrag",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "dialup",
+	 "category": "Internet"
+	},
+	{
+	 "word": "domain",
+	 "category": "Internet"
+	},
+	{
+	 "word": "dotcom",
+	 "category": "Internet"
+	},
+	{
+	 "word": "eminem",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "floppy",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "format",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "future",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "glitch",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "laptop",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "lurker",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "matrix",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "newbie",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "reboot",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "rental",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "router",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "server",
+	 "category": "Internet"
+	},
+	{
+	 "word": "smiley",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "techno",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "tetris",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "upload",
+	 "category": "Internet"
+	},
+	{
+	 "word": "velour",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "wassup",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "webcam",
+	 "category": "Internet"
+	},
+	{
+	 "word": "winamp",
+	 "category": "Internet"
+	},
+	{
+	 "word": "wizard",
+	 "category": "Software & Bugs"
+	}
    ]
   },
   {
@@ -707,374 +707,374 @@
    "name": "Hard",
    "rule": "7-9 letters",
    "words": [
-    {
-     "word": "android",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "bandana",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "boyband",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "britney",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "browser",
-     "category": "Internet"
-    },
-    {
-     "word": "clipart",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "desktop",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "destiny",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "digimon",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "digital",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "discman",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "gameboy",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "glitter",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "hotmail",
-     "category": "Internet"
-    },
-    {
-     "word": "install",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "lowrise",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "malware",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "mixtape",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "myspace",
-     "category": "Internet"
-    },
-    {
-     "word": "napster",
-     "category": "Internet"
-    },
-    {
-     "word": "neopets",
-     "category": "Internet"
-    },
-    {
-     "word": "notepad",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "pentium",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "pinball",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "pokemon",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "printer",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "scanner",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "spyware",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "startup",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "taskbar",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "toolbar",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "virtual",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "walkman",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "webring",
-     "category": "Internet"
-    },
-    {
-     "word": "windows",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "wordart",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "aguilera",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "blackout",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "bookmark",
-     "category": "Internet"
-    },
-    {
-     "word": "bulletin",
-     "category": "Internet"
-    },
-    {
-     "word": "chatroom",
-     "category": "Internet"
-    },
-    {
-     "word": "doomsday",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "download",
-     "category": "Internet"
-    },
-    {
-     "word": "ethernet",
-     "category": "Internet"
-    },
-    {
-     "word": "firewall",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "freeware",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "gigabyte",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "hologram",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "homepage",
-     "category": "Internet"
-    },
-    {
-     "word": "joystick",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "keyboard",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "limewire",
-     "category": "Internet"
-    },
-    {
-     "word": "megabyte",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "meltdown",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "metallic",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "minidisc",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "netscape",
-     "category": "Internet"
-    },
-    {
-     "word": "nintendo",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "platform",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "registry",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "ringtone",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "shutdown",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "sidekick",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "survival",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "whatever",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "altavista",
-     "category": "Internet"
-    },
-    {
-     "word": "angelfire",
-     "category": "Internet"
-    },
-    {
-     "word": "antivirus",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "askjeeves",
-     "category": "Internet"
-    },
-    {
-     "word": "bedazzled",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "broadband",
-     "category": "Internet"
-    },
-    {
-     "word": "bubblegum",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "camcorder",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "cartridge",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "countdown",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "dreamcast",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "geocities",
-     "category": "Internet"
-    },
-    {
-     "word": "guestbook",
-     "category": "Internet"
-    },
-    {
-     "word": "hyperlink",
-     "category": "Internet"
-    },
-    {
-     "word": "megahertz",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "newsgroup",
-     "category": "Internet"
-    },
-    {
-     "word": "processor",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "scrunchie",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "shareware",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "shockwave",
-     "category": "Internet"
-    },
-    {
-     "word": "solitaire",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "soundcard",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "stockpile",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "trackball",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "tracksuit",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "wallpaper",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "webmaster",
-     "category": "Internet"
-    }
+	{
+	 "word": "android",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "bandana",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "boyband",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "britney",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "browser",
+	 "category": "Internet"
+	},
+	{
+	 "word": "clipart",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "desktop",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "destiny",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "digimon",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "digital",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "discman",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "gameboy",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "glitter",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "hotmail",
+	 "category": "Internet"
+	},
+	{
+	 "word": "install",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "lowrise",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "malware",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "mixtape",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "myspace",
+	 "category": "Internet"
+	},
+	{
+	 "word": "napster",
+	 "category": "Internet"
+	},
+	{
+	 "word": "neopets",
+	 "category": "Internet"
+	},
+	{
+	 "word": "notepad",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "pentium",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "pinball",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "pokemon",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "printer",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "scanner",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "spyware",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "startup",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "taskbar",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "toolbar",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "virtual",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "walkman",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "webring",
+	 "category": "Internet"
+	},
+	{
+	 "word": "windows",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "wordart",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "aguilera",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "blackout",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "bookmark",
+	 "category": "Internet"
+	},
+	{
+	 "word": "bulletin",
+	 "category": "Internet"
+	},
+	{
+	 "word": "chatroom",
+	 "category": "Internet"
+	},
+	{
+	 "word": "doomsday",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "download",
+	 "category": "Internet"
+	},
+	{
+	 "word": "ethernet",
+	 "category": "Internet"
+	},
+	{
+	 "word": "firewall",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "freeware",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "gigabyte",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "hologram",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "homepage",
+	 "category": "Internet"
+	},
+	{
+	 "word": "joystick",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "keyboard",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "limewire",
+	 "category": "Internet"
+	},
+	{
+	 "word": "megabyte",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "meltdown",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "metallic",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "minidisc",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "netscape",
+	 "category": "Internet"
+	},
+	{
+	 "word": "nintendo",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "platform",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "registry",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "ringtone",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "shutdown",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "sidekick",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "survival",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "whatever",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "altavista",
+	 "category": "Internet"
+	},
+	{
+	 "word": "angelfire",
+	 "category": "Internet"
+	},
+	{
+	 "word": "antivirus",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "askjeeves",
+	 "category": "Internet"
+	},
+	{
+	 "word": "bedazzled",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "broadband",
+	 "category": "Internet"
+	},
+	{
+	 "word": "bubblegum",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "camcorder",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "cartridge",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "countdown",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "dreamcast",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "geocities",
+	 "category": "Internet"
+	},
+	{
+	 "word": "guestbook",
+	 "category": "Internet"
+	},
+	{
+	 "word": "hyperlink",
+	 "category": "Internet"
+	},
+	{
+	 "word": "megahertz",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "newsgroup",
+	 "category": "Internet"
+	},
+	{
+	 "word": "processor",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "scrunchie",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "shareware",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "shockwave",
+	 "category": "Internet"
+	},
+	{
+	 "word": "solitaire",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "soundcard",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "stockpile",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "trackball",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "tracksuit",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "wallpaper",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "webmaster",
+	 "category": "Internet"
+	}
    ]
   },
   {
@@ -1082,82 +1082,82 @@
    "name": "Expert",
    "rule": "10+ letters, single word",
    "words": [
-    {
-     "word": "apocalypse",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "blackberry",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "bluescreen",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "camouflage",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "cyberspace",
-     "category": "Internet"
-    },
-    {
-     "word": "friendster",
-     "category": "Internet"
-    },
-    {
-     "word": "futuristic",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "iridescent",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "millennium",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "rhinestone",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "tamagotchi",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "blockbuster",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "holographic",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "livejournal",
-     "category": "Internet"
-    },
-    {
-     "word": "minesweeper",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "motherboard",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "playstation",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "screensaver",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "translucent",
-     "category": "Fashion & Style"
-    }
+	{
+	 "word": "apocalypse",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "blackberry",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "bluescreen",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "camouflage",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "cyberspace",
+	 "category": "Internet"
+	},
+	{
+	 "word": "friendster",
+	 "category": "Internet"
+	},
+	{
+	 "word": "futuristic",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "iridescent",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "millennium",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "rhinestone",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "tamagotchi",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "blockbuster",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "holographic",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "livejournal",
+	 "category": "Internet"
+	},
+	{
+	 "word": "minesweeper",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "motherboard",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "playstation",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "screensaver",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "translucent",
+	 "category": "Fashion & Style"
+	}
    ]
   },
   {
@@ -1165,306 +1165,306 @@
    "name": "Insane",
    "rule": "Phrases with spaces",
    "words": [
-    {
-     "word": "as if",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "two k",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "my bad",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "da bomb",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "new era",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "oh snap",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "all that",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "boy band",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "teen pop",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "burn a cd",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "cd burner",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "dial tone",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "got to go",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "tony hawk",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "zip drive",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "bucket hat",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "buddy list",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "flip phone",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "fo shizzle",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "reality tv",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "floppy disk",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "hit counter",
-     "category": "Internet"
-    },
-    {
-     "word": "memory card",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "music video",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "screen name",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "trucker hat",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "you go girl",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "away message",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "body glitter",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "compact disc",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "ctrl alt del",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "frosted tips",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "peer to peer",
-     "category": "Internet"
-    },
-    {
-     "word": "two thousand",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "be right back",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "be kind rewind",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "dot com bubble",
-     "category": "Internet"
-    },
-    {
-     "word": "happy new year",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "laugh out loud",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "low rise jeans",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "millennium bug",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "new millennium",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "one hit wonder",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "world wide web",
-     "category": "Internet"
-    },
-    {
-     "word": "butterfly clips",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "fatal exception",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "abort retry fail",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "talk to the hand",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "answering machine",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "frosted lip gloss",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "illegal operation",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "instant messenger",
-     "category": "Internet"
-    },
-    {
-     "word": "platform sneakers",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "sign my guestbook",
-     "category": "Internet"
-    },
-    {
-     "word": "talk to you later",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "tinted sunglasses",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "you have got mail",
-     "category": "Internet"
-    },
-    {
-     "word": "control alt delete",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "dial up connection",
-     "category": "Internet"
-    },
-    {
-     "word": "portable cd player",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "total request live",
-     "category": "Music & Pop Culture"
-    },
-    {
-     "word": "under construction",
-     "category": "Internet"
-    },
-    {
-     "word": "puka shell necklace",
-     "category": "Fashion & Style"
-    },
-    {
-     "word": "translucent plastic",
-     "category": "Tech & Hardware"
-    },
-    {
-     "word": "turn of the century",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "blue screen of death",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "nineteen ninety nine",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "rolling on the floor",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "the end of the world",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "parents over shoulder",
-     "category": "Chat Slang"
-    },
-    {
-     "word": "best viewed in netscape",
-     "category": "Internet"
-    },
-    {
-     "word": "information superhighway",
-     "category": "Internet"
-    },
-    {
-     "word": "party like its nineteen ninety nine",
-     "category": "Y2K & Millennium"
-    },
-    {
-     "word": "it is now safe to turn off your computer",
-     "category": "Software & Bugs"
-    },
-    {
-     "word": "this program has performed an illegal operation",
-     "category": "Software & Bugs"
-    }
+	{
+	 "word": "as if",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "two k",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "my bad",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "da bomb",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "new era",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "oh snap",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "all that",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "boy band",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "teen pop",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "burn a cd",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "cd burner",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "dial tone",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "got to go",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "tony hawk",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "zip drive",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "bucket hat",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "buddy list",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "flip phone",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "fo shizzle",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "reality tv",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "floppy disk",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "hit counter",
+	 "category": "Internet"
+	},
+	{
+	 "word": "memory card",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "music video",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "screen name",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "trucker hat",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "you go girl",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "away message",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "body glitter",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "compact disc",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "ctrl alt del",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "frosted tips",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "peer to peer",
+	 "category": "Internet"
+	},
+	{
+	 "word": "two thousand",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "be right back",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "be kind rewind",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "dot com bubble",
+	 "category": "Internet"
+	},
+	{
+	 "word": "happy new year",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "laugh out loud",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "low rise jeans",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "millennium bug",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "new millennium",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "one hit wonder",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "world wide web",
+	 "category": "Internet"
+	},
+	{
+	 "word": "butterfly clips",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "fatal exception",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "abort retry fail",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "talk to the hand",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "answering machine",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "frosted lip gloss",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "illegal operation",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "instant messenger",
+	 "category": "Internet"
+	},
+	{
+	 "word": "platform sneakers",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "sign my guestbook",
+	 "category": "Internet"
+	},
+	{
+	 "word": "talk to you later",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "tinted sunglasses",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "you have got mail",
+	 "category": "Internet"
+	},
+	{
+	 "word": "control alt delete",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "dial up connection",
+	 "category": "Internet"
+	},
+	{
+	 "word": "portable cd player",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "total request live",
+	 "category": "Music & Pop Culture"
+	},
+	{
+	 "word": "under construction",
+	 "category": "Internet"
+	},
+	{
+	 "word": "puka shell necklace",
+	 "category": "Fashion & Style"
+	},
+	{
+	 "word": "translucent plastic",
+	 "category": "Tech & Hardware"
+	},
+	{
+	 "word": "turn of the century",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "blue screen of death",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "nineteen ninety nine",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "rolling on the floor",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "the end of the world",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "parents over shoulder",
+	 "category": "Chat Slang"
+	},
+	{
+	 "word": "best viewed in netscape",
+	 "category": "Internet"
+	},
+	{
+	 "word": "information superhighway",
+	 "category": "Internet"
+	},
+	{
+	 "word": "party like its nineteen ninety nine",
+	 "category": "Y2K & Millennium"
+	},
+	{
+	 "word": "it is now safe to turn off your computer",
+	 "category": "Software & Bugs"
+	},
+	{
+	 "word": "this program has performed an illegal operation",
+	 "category": "Software & Bugs"
+	}
    ]
   }
  ]
