@@ -11,11 +11,9 @@ const GAP_MIN := 520.0               # px between obstacles
 const GAP_MAX := 780.0
 const SPAWN_X := W + 60.0
 
-# Each obstacle type is a size and a color. Add a line to add a new type.
+# Obstacle placeholder (size + color). P4 swaps in real art; add a line for more types.
 const OBSTACLE_TYPES := [
-	{"size": Vector2(30, 70), "color": Color(0.9, 0.2, 0.2)},    # tall box
 	{"size": Vector2(90, 30), "color": Color(0.9, 0.55, 0.1)},   # wide, low box
-	{"size": Vector2(40, 40), "color": Color(0.8, 0.8, 0.2)},    # small box
 ]
 
 var playing := false
