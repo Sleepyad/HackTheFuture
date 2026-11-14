@@ -11,6 +11,13 @@ const GAP_MIN := 520.0               # px between obstacles
 const GAP_MAX := 780.0
 const SPAWN_X := W + 60.0
 
+# Each obstacle type is a size and a color. Add a line to add a new type.
+const OBSTACLE_TYPES := [
+	{"size": Vector2(30, 70), "color": Color(0.9, 0.2, 0.2)},    # tall box
+	{"size": Vector2(90, 30), "color": Color(0.9, 0.55, 0.1)},   # wide, low box
+	{"size": Vector2(40, 40), "color": Color(0.8, 0.8, 0.2)},    # small box
+]
+
 var playing := false
 var _layers: Array[Dictionary] = []  # {node, factor, span}
 var _obstacles: Array[ColorRect] = []
@@ -104,10 +111,11 @@ func _move_obstacles(dist: float) -> void:
 func _maybe_spawn() -> void:
 	if not _obstacles.is_empty() and _obstacles.back().position.x > W - _next_gap:
 		return
+	var type: Dictionary = OBSTACLE_TYPES.pick_random()   # choose a random type
 	var o := ColorRect.new()
-	o.size = Vector2(randf_range(30.0, 60.0), randf_range(30.0, 60.0))
-	o.position = Vector2(SPAWN_X, GROUND_Y - o.size.y)
-	o.color = Color(0.9, 0.55, 0.1)
+	o.size = type["size"]
+	o.position = Vector2(SPAWN_X, GROUND_Y - o.size.y)    # sit on the ground
+	o.color = type["color"]
 	obstacle_root.add_child(o)
 	_obstacles.append(o)
 	_next_gap = randf_range(GAP_MIN, GAP_MAX)
