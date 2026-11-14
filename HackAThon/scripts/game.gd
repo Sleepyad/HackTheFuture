@@ -3,7 +3,7 @@ extends Node
 # Godot 4.x. Handles: countdown, difficulty ramp, trick typing, penalties, bonuses, glitch rolls.
 
 # ---------- TUNING (change these, not the logic) ----------
-const START_TIME := 30.0            # seconds on the clock at the start
+const START_TIME := 10.0            # seconds on the clock at the start
 const MAX_TIME := 60.0              # clock can never exceed this
 const SLOWMO_SCALE := 0.3           # world speed during a trick (option B). 1.0 = normal
 const RAMP_SECONDS := 90.0          # how long until difficulty hits max (1.0): speed, air time, glitches
@@ -23,6 +23,11 @@ const WARMUP_WORDS := 2             # the first N words are always easy (3 lette
 const LEVEL2_MIN_DIFFICULTY := 0.55 # difficulty the moment level 2 starts (the stress jump)
 const MAX_LEVEL := 8
 const POINTS_PER_WORD := 5          # score = seconds survived + POINTS_PER_WORD * words
+# COMBO: finish a word with air time to spare and you get another word in the SAME jump.
+# Word number N in one jump pays bonus * N. Harder later: less air time + a higher spare-time bar.
+const COMBO_MAX := 5                # max words in one jump
+const COMBO_MIN_AIR_EASY := 0.6     # real seconds of air that must remain to chain, difficulty 0
+const COMBO_MIN_AIR_HARD := 1.3     # ... at difficulty 1
 # Typing speed rating: fraction of the air time used to finish the word.
 # Faster than RATING_MAX_USED[i] -> RATINGS[i + 1]. Slower than all -> RATINGS[0].
 const RATINGS: Array[String] = ["Nice", "Hot", "Amazing", "Feverish"]
@@ -30,6 +35,10 @@ const RATING_MAX_USED: Array[float] = [0.65, 0.45, 0.30]
 const GLITCH_CHANCE_MAX := 0.6      # chance per roll at max difficulty
 const GLITCH_ROLL_EVERY := 0.8      # real seconds between glitch rolls during a trick
 
+# Bigger word bank (team file). Words from it are added to WORDS below, same length buckets.
+const WORDS_JSON := "res://data/y2k_words.json"
+
+# Built-in fallback words (also used if the JSON is missing, e.g. not exported).
 const WORDS := {
 	3: ["web", "pop", "cd", "aol", "msn", "dot", "net", "bug", "pc", "cam"],
 	4: ["wifi", "icq", "mail", "disk", "byte", "chat", "dial", "beep", "y2k", "boot"],
@@ -52,6 +61,7 @@ signal level_changed(level: int)             # 1, 2, 3 ... every LEVEL_SECONDS
 signal player_landed()                       # trick over, slow-mo off
 signal player_hit_obstacle()                 # emitted by hit_obstacle()
 signal time_delta(seconds: float)            # any +/- change to the clock (bonus, penalty)
+signal combo_changed(multiplier: int)        # another word chained in the same jump: next word pays x multiplier
 signal word_rated(adjective: String, tier: int)   # "Nice"(0) .. "Feverish"(3), on each clean word
 
 enum State { IDLE, RUNNING, TRICK, GAME_OVER }   # IDLE = title screen, clock stopped
@@ -62,6 +72,7 @@ var elapsed := 0.0                           # real seconds survived
 var difficulty := 0.0                        # 0.0 -> 1.0 (continuous, for speed etc.)
 var level := 1                               # 1 -> MAX_LEVEL (steps, see level_changed)
 var words_completed := 0
+var combo := 0                               # words completed in the current jump
 var _hit_cooldown := 0.0
 
 var target_word := ""
@@ -70,8 +81,12 @@ var _air_left := 0.0
 var _air_total := 0.0
 var _glitch_timer := 0.0
 
+var _pool: Dictionary = {}                   # word length (int) -> Array[String], typeable words only
+var _used: Dictionary = {}                   # lowercase words already shown this run
+
 
 func _ready() -> void:
+	_build_pool()
 	_clear()
 	state = State.IDLE                       # clock waits for the first reset() (Play)
 
@@ -92,7 +107,9 @@ func _clear() -> void:
 	difficulty = 0.0
 	level = 1
 	words_completed = 0
+	combo = 0
 	_hit_cooldown = 0.0
+	_used.clear()                            # words can repeat again in the next run
 	target_word = ""
 	typed_count = 0
 
@@ -144,6 +161,7 @@ func start_trick() -> void:
 	if state != State.RUNNING:
 		return
 	state = State.TRICK
+	combo = 0
 	typed_count = 0
 	target_word = _pick_word()
 	_air_left = lerpf(AIR_TIME_EASY, AIR_TIME_HARD, difficulty)
@@ -233,20 +251,50 @@ func _unhandled_input(event: InputEvent) -> void:
 
 # ---------- INTERNALS ----------
 func _end_trick(success: bool) -> void:
+	# COMBO: word done and enough air left -> pay it, then give another word in the same jump.
+	# We stay in State.TRICK with slow-mo on, so the skater is not "landed" in between.
+	if success and combo + 1 < COMBO_MAX and _air_left >= _chain_min_air():
+		_pay_word()
+		if state != State.GAME_OVER:
+			_chain_next_word()
+		return
 	state = State.RUNNING
 	Engine.time_scale = 1.0
 	target_word = ""
 	typed_count = 0
 	player_landed.emit()
 	if success:
-		words_completed += 1
-		var bonus := current_bonus()
-		_add_time(bonus)
-		trick_succeeded.emit(bonus)
-		var tier := rate_speed(1.0 - _air_left / maxf(_air_total, 0.001))
-		word_rated.emit(RATINGS[tier], tier)
-	else:
-		trick_failed.emit()
+		_pay_word()
+	elif combo == 0:
+		trick_failed.emit()          # ran out of air with nothing typed this jump
+	combo = 0                        # (a chained word that times out just ends the combo)
+
+
+# Spare air time needed to chain; rises with difficulty so late-game combos are rare.
+func _chain_min_air() -> float:
+	return lerpf(COMBO_MIN_AIR_EASY, COMBO_MIN_AIR_HARD, difficulty)
+
+
+# Pays one finished word: bonus x (its number in this jump).
+func _pay_word() -> void:
+	combo += 1
+	words_completed += 1
+	var bonus := current_bonus() * combo
+	_add_time(bonus)
+	trick_succeeded.emit(bonus)
+	var tier := rate_speed(1.0 - _air_left / maxf(_air_total, 0.001))
+	word_rated.emit(RATINGS[tier], tier)
+
+
+# Next word of the combo, using the air time that is left. The skater ignores this
+# trick_started (it is already airborne), the HUD popup shows the new word.
+func _chain_next_word() -> void:
+	typed_count = 0
+	target_word = _pick_word()
+	_air_total = _air_left
+	_glitch_timer = GLITCH_ROLL_EVERY
+	combo_changed.emit(combo + 1)
+	trick_started.emit(target_word, _air_left)
 
 
 func _add_time(seconds: float) -> void:
@@ -269,12 +317,52 @@ func _set_game_over() -> void:
 
 # First WARMUP_WORDS words: 3 letters. Then straight to hard words:
 # 5 letters at level 1, 6 letters from level 2 on.
+# A word never shows up twice in the same run: when every word of the wanted length is used,
+# we borrow from the next lengths (one longer first), and only start over if the whole bank is used.
 func _pick_word() -> String:
 	var length := WORD_LEN_EASY
 	if words_completed >= WARMUP_WORDS:
 		length = clampi(WORD_LEN_EASY + 1 + level, WORD_LEN_EASY, WORD_LEN_HARD)
-	var bucket: Array = WORDS[length]
-	return bucket[randi() % bucket.size()]
+	var word := _draw_unused(length)
+	if word == "":
+		_used.clear()                        # the whole bank was used: new cycle
+		word = _draw_unused(length)
+	_used[word.to_lower()] = true
+	return word
+
+
+func _draw_unused(length: int) -> String:
+	for offset in [0, 1, -1, 2, -2, 3, -3]:
+		var bucket: Array = _pool.get(length + offset, [])
+		var fresh: Array = bucket.filter(func(w: String) -> bool: return not _used.has(w.to_lower()))
+		if not fresh.is_empty():
+			return fresh[randi() % fresh.size()]
+	return ""
+
+
+# Merges the built-in words and the JSON bank, dropping duplicates and anything the player
+# could not type (spaces, hyphens, apostrophes: only letters and digits are read as input).
+func _build_pool() -> void:
+	_pool.clear()
+	var seen := {}
+	var all_words: Array = []
+	for length in WORDS:
+		all_words.append_array(WORDS[length])
+	if FileAccess.file_exists(WORDS_JSON):
+		var data = JSON.parse_string(FileAccess.get_file_as_string(WORDS_JSON))
+		if typeof(data) == TYPE_DICTIONARY:
+			for lvl in data.get("levels", []):
+				for entry in lvl.get("words", []):
+					all_words.append(str(entry.get("word", "")))
+	var typeable := RegEx.create_from_string("^[A-Za-z0-9]+$")
+	for w in all_words:
+		var key: String = w.to_lower()
+		if seen.has(key) or typeable.search(w) == null:
+			continue
+		seen[key] = true
+		if not _pool.has(w.length()):
+			_pool[w.length()] = []
+		_pool[w.length()].append(w)
 
 
 func _roll_glitch() -> void:

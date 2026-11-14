@@ -11,6 +11,8 @@ const SPEED_HARD := 850.0            # px/s at difficulty 1 (C: faster ramp)
 const GAP_MIN := 520.0               # px between obstacles
 const GAP_MAX := 780.0
 const SPAWN_X := W + 60.0
+const SPEED_PER_WORD := 0.05         # +5% scroll speed for every word completed
+const SPEED_MULT_MAX := 1.6          # speed bonus from words is capped at +60%
 
 const OBSTACLE_SCENE := preload("res://scenes/obstacle.tscn")
 
@@ -38,13 +40,18 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if not playing:
 		return
-	var speed := lerpf(SPEED_EASY, SPEED_HARD, Game.difficulty)
+	var speed := lerpf(SPEED_EASY, SPEED_HARD, Game.difficulty) * _word_speed_mult()
 	background.scroll(speed * delta)
 	_scroll_layers(speed * delta)
 	_move_obstacles(speed * delta)
 	_maybe_spawn()
 	_check_jump_trigger(speed)
 	_check_collisions()
+
+
+# World gets faster after every completed word (resets with Game.reset()).
+func _word_speed_mult() -> float:
+	return minf(1.0 + Game.words_completed * SPEED_PER_WORD, SPEED_MULT_MAX)
 
 
 # Hit test: the skater overlaps an obstacle sideways AND its feet are below the
@@ -131,7 +138,8 @@ func _maybe_spawn() -> void:
 	o.position = Vector2(SPAWN_X, GROUND_Y)
 	obstacle_root.add_child(o)
 	_obstacles.append(o)
-	_next_gap = randf_range(GAP_MIN, GAP_MAX)
+	# Gaps grow with speed so the time between obstacles stays enough to land the trick.
+	_next_gap = randf_range(GAP_MIN, GAP_MAX) * _word_speed_mult()
 
 
 # Jumps when an obstacle's centre is half a flight-distance away, so the skater is at
