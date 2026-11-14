@@ -62,6 +62,7 @@ func _process(delta: float) -> void:
 			_glitch_span = randf_range(GLITCH_LEN.x, GLITCH_LEN.y)
 			_glitch_left = _glitch_span
 			_glitch_wait = randf_range(GLITCH_GAP.x, GLITCH_GAP.y)
+			Sfx.glitch(_glitch_span)
 
 
 # Called by Main when Game.game_over fires.
