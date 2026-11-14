@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Game="*uid://cv6vly1biba12"
+TimerFx="*res://scripts/timer_fx.gd"
 
 [display]
 

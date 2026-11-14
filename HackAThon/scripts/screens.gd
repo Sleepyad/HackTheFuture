@@ -5,7 +5,7 @@ extends CanvasLayer
 
 signal start_requested
 
-var _best := 0.0            # best survival this session (memory only, no file I/O)
+var _best := 0            # best score this session (memory only, no file I/O)
 
 @onready var title_screen: ColorRect = $TitleScreen
 @onready var title_label: Label = $TitleScreen/TitleLabel
@@ -23,7 +23,8 @@ func _ready() -> void:
 		s.color = Color(0.03, 0.03, 0.1, 0.92)
 	_setup_label(title_label, "SKATE.EXE", Vector2(0, 170), 96)
 	_setup_label(hint_label, "Type the word to land the trick. Don't let the clock hit 0.", Vector2(0, 300), 28)
-	_setup_label(result_label, "", Vector2(0, 150), 56)
+	_setup_label(result_label, "", Vector2(0, 110), 44)
+	result_label.size = Vector2(1280, 300)
 	_setup_button(start_button, "CLICK TO START", Vector2(480, 430))
 	_setup_button(restart_button, "RESTART", Vector2(480, 460))
 	start_button.pressed.connect(_on_start_pressed)
@@ -33,9 +34,14 @@ func _ready() -> void:
 
 
 # Called by Main when Game.game_over fires.
+# Score = seconds survived + Game.POINTS_PER_WORD per word (C4).
 func show_game_over(survived: float) -> void:
-	_best = maxf(_best, survived)
-	result_label.text = "GAME OVER\nYou survived %.1fs\nBest: %.1fs" % [survived, _best]
+	var score: int = Game.score()
+	var new_best: bool = score > _best
+	_best = maxi(_best, score)
+	result_label.text = "GAME OVER\nSCORE %d%s\n%.1fs survived  +  %d words x %d\nBest: %d" % [
+		score, "  NEW BEST!" if new_best else "", survived, Game.words_completed,
+		Game.POINTS_PER_WORD, _best]
 	over_screen.show()
 
 
